@@ -1,122 +1,205 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
 import './App.css'
 
+const features = [
+  {
+    icon: '📦',
+    title: 'Gestión de productos',
+    description: 'Organiza tus productos y administra la información de tu inventario en un solo lugar.',
+  },
+  {
+    icon: '📊',
+    title: 'Control de inventario',
+    description: 'Consulta las existencias y lleva un seguimiento de los movimientos de inventario.',
+  },
+  {
+    icon: '🔔',
+    title: 'Alertas de inventario',
+    description: 'Identifica los productos que necesitan ser reabastecidos.',
+  },
+  {
+    icon: '📈',
+    title: 'Información del negocio',
+    description: 'Consulta la información de tu inventario para tomar mejores decisiones.',
+  },
+]
+
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
+    <div className="app">
+      <header className="navbar">
+        <a href="#home" className="brand">
+          <span className="brand-icon">S</span>
+          StockWise
+        </a>
+
+        <nav className="nav-links" aria-label="Navegación principal">
+          <a href="#home">Inicio</a>
+          <a href="#features">Funcionalidades</a>
+          <a href="#how-it-works">¿Cómo funciona?</a>
+        </nav>
+
+        <a href="#features" className="nav-button">
+          Comenzar 
+        </a>
+      </header>
+
+      <main>
+        <section className="hero" id="home">
+          <div className="hero-content">
+            <span className="eyebrow">
+               GESTIÓN INTELIGENTE DE INVENTARIOS
+            </span>
+
+            <h1>
+              Tu inventario.
+              <br />
+              <span>Bajo control.</span>
+            </h1>
+
+            <p>
+              Simplifica la gestión de tu inventario con StockWise.
+              Organiza tus productos, consulta las existencias
+              y toma mejores decisiones para tu negocio.
+            </p>
+
+            <div className="hero-actions">
+              <a href="#features" className="primary-button">
+                Explorar funcionalidades
+              </a>
+
+              <a href="#how-it-works" className="secondary-button">
+                ¿Cómo funciona?
+              </a>
+            </div>
+
+            <div className="hero-note">
+              <span className="status-dot"></span>
+              Pensado para pequeños negocios en crecimiento
+            </div>
+          </div>
+
+          <div className="hero-visual">
+            <div className="preview-label">
+              STOCKWISE / RESUMEN
+            </div>
+
+            <div className="preview-header">
+              <div>
+                <span className="preview-caption">
+                  RESUMEN DEL INVENTARIO
+                </span>
+                <h2>Tu negocio de un vistazo</h2>
+              </div>
+              <span className="preview-badge">Demo</span>
+            </div>
+
+            <div className="preview-stats">
+              <div className="stat-card">
+                <span>Total de productos</span>
+                <strong>248</strong>
+                <small>Productos registrados</small>
+              </div>
+
+              <div className="stat-card">
+                <span>Unidades disponibles</span>
+                <strong>1.842</strong>
+                <small>En el inventario</small>
+              </div>
+
+              <div className="stat-card warning">
+                <span>Existencias bajas</span>
+                <strong>08</strong>
+                <small>Requieren atención</small>
+              </div>
+            </div>
+
+            <div className="preview-table">
+              <div className="table-heading">
+                <strong>Productos recientes</strong>
+                <span>Datos de ejemplo</span>
+              </div>
+
+              <div className="product-row">
+                <span> Camiseta básica</span>
+                <span className="stock-ok">Disponible</span>
+              </div>
+              <div className="product-row">
+                <span> Cuaderno</span>
+                <span className="stock-low">Existencias bajas</span>
+              </div>
+              <div className="product-row">
+                <span> Mochila</span>
+                <span className="stock-ok">Disponible</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="features section" id="features">
+          <div className="section-heading">
+            <span className="section-label">¿POR QUÉ STOCKWISE?</span>
+            <h2>Todo lo que necesitas para organizar tu inventario.</h2>
+            <p>
+              Herramientas sencillas para facilitar el control
+              del inventario de pequeños negocios.
+            </p>
+          </div>
+
+          <div className="features-grid">
+            {features.map((feature) => (
+              <article className="feature-card" key={feature.title}>
+                <div className="feature-icon">{feature.icon}</div>
+                <h3>{feature.title}</h3>
+                <p>{feature.description}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="how-section section" id="how-it-works">
+          <div className="section-heading">
+            <span className="section-label">¿CÓMO FUNCIONA?</span>
+            <h2>Organiza tu inventario en tres pasos.</h2>
+          </div>
+
+          <div className="steps-grid">
+            <div className="step">
+              <span>01</span>
+              <h3>Registra tus productos</h3>
+              <p>Agrega y organiza los productos de tu negocio.</p>
+            </div>
+            <div className="step">
+              <span>02</span>
+              <h3>Controla las existencias</h3>
+              <p>Consulta las unidades disponibles y los movimientos de inventario.</p>
+            </div>
+            <div className="step">
+              <span>03</span>
+              <h3>Mantente informado</h3>
+              <p>Identifica productos con pocas existencias y planifica su reposición.</p>
+            </div>
+          </div>
+        </section>
+
+        <section className="cta-section">
+          <span className="section-label">ORGANIZA TU NEGOCIO</span>
+          <h2>Toma el control de tu inventario.</h2>
           <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
+            Facilita la gestión de tus productos con StockWise.
           </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+          <a href="#features" className="cta-button">
+            Conoce StockWise 
+          </a>
+        </section>
+      </main>
 
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
+      <footer className="footer">
+        <span className="footer-brand">StockWise</span>
+        <span>Gestión de inventarios para pequeños negocios.</span>
+        <span>© 2026 StockWise</span>
+      </footer>
+    </div>
   )
 }
 
-export default App
+export default App  
