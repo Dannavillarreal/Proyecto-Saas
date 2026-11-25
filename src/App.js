@@ -4,6 +4,8 @@ import React, { useState } from 'react';
 import Products from './Pages/Products';
 import './App.css'
 
+const CODIGO_ACCESO = 'STOCKWISE2026';
+
 const features = [
   {
     icon: '📦',
@@ -29,15 +31,51 @@ const features = [
 
 function App() {
   const [vista, setVista] = useState('inicio');
+  const [autenticado, setAutenticado] = useState(false);
+  const [codigo, setCodigo] = useState('');
+  const [errorAcceso, setErrorAcceso] = useState('');
 
-  // Estado compartido entre Productos, Movimientos y el futuro Dashboard
-  const [products, setProducts] = useState([
-    { id: 1, name: 'Arroz', category: 'Alimentos', quantity: 25, price: 4000 },
-    { id: 2, name: 'Teclado Mecánico', category: 'Tecnología', quantity: 15, price: 120000 },
-    { id: 3, name: 'Mouse Inalámbrico', category: 'Tecnología', quantity: 4, price: 55000 },
-  ]);
+  // Estado compartido con persistencia local en el navegador
+  const [products, setProducts] = useState(() => {
+    const guardados = localStorage.getItem('stockwise_products');
+    return guardados ? JSON.parse(guardados) : [
+      { id: 1, name: 'Arroz', category: 'Alimentos', quantity: 25, price: 4000 },
+      { id: 2, name: 'Teclado Mecánico', category: 'Tecnología', quantity: 15, price: 120000 },
+      { id: 3, name: 'Mouse Inalámbrico', category: 'Tecnología', quantity: 4, price: 55000 },
+    ];
+  });
 
-  const [movimientos, setMovimientos] = useState([]);
+  const [movimientos, setMovimientos] = useState(() => {
+    const guardados = localStorage.getItem('stockwise_movimientos');
+    return guardados ? JSON.parse(guardados) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem('stockwise_products', JSON.stringify(products));
+  }, [products]);
+
+  useEffect(() => {
+    localStorage.setItem('stockwise_movimientos', JSON.stringify(movimientos));
+  }, [movimientos]);
+
+  const validarAcceso = (e) => {
+    e.preventDefault();
+    if (codigo.trim() === CODIGO_ACCESO) {
+      setAutenticado(true);
+      setCodigo('');
+      setErrorAcceso('');
+      setVista('dashboard');
+    } else {
+      setErrorAcceso('Código de acceso incorrecto.');
+    }
+  };
+
+  const volverInicio = () => {
+    setAutenticado(false);
+    setCodigo('');
+    setErrorAcceso('');
+    setVista('inicio');
+  };
   
   return (
     <div className="app">
