@@ -61,3 +61,12 @@
    npm start
    ```
 4. Abre [http://localhost:3000](http://localhost:3000) en el navegador. La página se recarga sola al guardar cambios.
+
+### Comandos disponibles
+
+| Comando | Descripción |
+|---|---|
+| `npm start` | Inicia el servidor de desarrollo en `http://localhost:3000`. |
+| `npm run build` | Compila la aplicación para producción en la carpeta `build/`. |
+| `npm test` | Ejecuta las pruebas en modo interactivo. |
+| `npm run eject` | Expone la configuración de Create React App (acción irreversible). |
