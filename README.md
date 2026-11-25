@@ -35,8 +35,12 @@
 
 ## Tecnologías Utilizadas
 
-* **Frontend:** React, JavaScript (ES6+), HTML5, CSS3
-* **Control de Versiones:** Git & GitHub
+* **Frontend:** React 19, JavaScript (ES6+), HTML5, CSS3
+* **Herramientas de compilación:** Create React App (`react-scripts` 5.0.1)
+* **Pruebas:** React Testing Library, Jest DOM y User Event
+* **Entorno de ejecución:** Node.js 18 o superior y npm
+* **Control de versiones:** Git y GitHub
+* **Despliegue:** Vercel
 
 ---
 ## Instalación y Ejecución Local
