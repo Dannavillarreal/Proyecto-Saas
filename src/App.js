@@ -137,16 +137,39 @@ function App() {
       )}
     </header>
     
-      {vista === 'productos' ? (
+      {vista === 'acceso' && !autenticado ? (
+        <main style={{ minHeight: '70vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '24px' }}>
+          <div style={{ width: '100%', maxWidth: '380px', backgroundColor: '#fff', padding: '32px', borderRadius: '12px', boxShadow: '0 8px 24px rgba(0,0,0,0.08)', textAlign: 'center' }}>
+            <h2 style={{ marginBottom: '20px', color: '#111827' }}>ACCESO</h2>
+            <form onSubmit={validarAcceso} style={{ display: 'grid', gap: '12px' }}>
+              <input
+                type="password"
+                value={codigo}
+                onChange={(e) => setCodigo(e.target.value)}
+                placeholder="Ingrese su código de acceso"
+                required
+                style={{ padding: '12px', borderRadius: '8px', border: '1px solid #d1d5db' }}
+              />
+              {errorAcceso && <p style={{ color: '#dc2626', fontSize: '0.85rem', margin: 0 }}>{errorAcceso}</p>}
+              <button
+                type="submit"
+                style={{ padding: '12px', backgroundColor: '#111827', color: '#fff', border: 'none', borderRadius: '8px', fontWeight: 'bold', cursor: 'pointer' }}
+              >
+                ACCEDER
+              </button>
+            </form>
+          </div>
+        </main>
+      ) : autenticado && vista === 'productos' ? (
         <Products products={products} setProducts={setProducts} />
-      ) : vista === 'movimientos' ? (
+      ) : autenticado && vista === 'movimientos' ? (
         <MovimientosInventario
           productos={products}
           onActualizarStock={setProducts}
           movimientos={movimientos}
           setMovimientos={setMovimientos}
         />
-      ) : vista === 'dashboard' ? (
+      ) : autenticado && vista === 'dashboard' ? (
         <Dashboard products={products} movimientos={movimientos} />
       ) : (
       <main>
