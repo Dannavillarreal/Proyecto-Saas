@@ -83,25 +83,26 @@ function App() {
         <a
           href="#home"
           className="brand"
-          onClick={() => setVista('inicio')}
+          onClick={volverInicio}
         >
           <span className="brand-icon">S</span>
           StockWise
         </a>
-        {vista === 'inicio' ? (
+        {(vista === 'inicio' || !autenticado) ? (
          <>
           <nav className="nav-links" aria-label="Navegación principal">
-            <a href="#home">Inicio</a>
-            <a href="#features">Funcionalidades</a>
-            <a href="#planes">Planes y precios</a>
+            <a href="#home" onClick={volverInicio}>Inicio</a>
+            <a href="#features" onClick={volverInicio}>Funcionalidades</a>
+            <a href="#planes" onClick={volverInicio}>Planes y precios</a>
           </nav>
 
           <a
-            href="#dashboard"
+            href="#acceso"
             className="nav-button"
             onClick={(e) => {
               e.preventDefault();
-              setVista('dashboard');
+              setErrorAcceso('');
+              setVista('acceso');
             }}
           >
             Comenzar
