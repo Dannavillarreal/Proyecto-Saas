@@ -4,18 +4,6 @@
 
 ---
 
-## Información Académica
-
-* **Asignatura:** Buenas Prácticas de Desarrollo de Software (BPDS) — Práctica de Desarrollo de Software
-* **Docente:** Kelly Villa
-* **Equipo de Desarrollo:**
-  * Bladimir Mieles
-  * Dana Villarreal
-  * Luisa Mejía
-  * Yordin Morris
-
----
-
 ## Módulos y Funcionalidades
 
 1. **Inicio y Navegación (`App.js`):** Interfaz principal de presentación de la plataforma y navegación dinámica entre vistas sin recarga de página.
@@ -74,3 +62,28 @@
 | `npm run build` | Compila la aplicación para producción en la carpeta `build/`. |
 | `npm test` | Ejecuta las pruebas en modo interactivo. |
 | `npm run eject` | Expone la configuración de Create React App (acción irreversible). |
+
+---
+
+## Estructura del Proyecto
+
+```
+Proyecto-Saas/
+├── public/                  # Archivos estáticos (index.html, favicon, íconos)
+├── src/
+│   ├── Components/
+│   │   └── Products/        # Componentes reutilizables del módulo de productos
+│   ├── Pages/
+│   │   ├── Dashboard.js             # Panel de resumen y alertas
+│   │   ├── MovimientosInventario.js # Registro de entradas y salidas
+│   │   ├── PasswordAccess.js        # Pantalla de acceso con contraseña
+│   │   └── Products.js              # Gestión y listado de productos
+│   ├── Styles/              # Hojas de estilo de cada página
+│   ├── Utils/
+│   │   └── inventario.js    # Lógica de inventario (con sus pruebas)
+│   ├── App.js               # Componente principal y navegación
+│   ├── index.js             # Punto de entrada de la aplicación
+│   └── setupTests.js        # Configuración de las pruebas
+├── package.json             # Dependencias y scripts del proyecto
+└── README.md                # Documentación del proyecto
+```
