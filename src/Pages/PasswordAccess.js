@@ -3,6 +3,7 @@ import '../Styles/PasswordAccess.css';
 
 export default function PasswordAccess({ onAccess, onBack }) {
     const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -28,14 +29,24 @@ export default function PasswordAccess({ onAccess, onBack }) {
                         <label htmlFor="password">Contraseña</label>
 
 
-                        <input
-                            id="password"
-                            type="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            placeholder="Ingresa la contraseña"
-                            required
-                        />
+                        <div className="password-input-wrapper">
+                            <input
+                                id="password"
+                                type={showPassword ? 'text' : 'password'}
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                placeholder="Ingresa la contraseña"
+                                required
+                            />
+                            <button
+                                type="button"
+                                className="password-toggle"
+                                onClick={() => setShowPassword((previous) => !previous)}
+                                aria-label={showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'}
+                            >
+                                {showPassword ? 'Ocultar' : 'Mostrar'}
+                            </button>
+                        </div>
                     </div>
 
                     <button type="submit" className="access-button">
