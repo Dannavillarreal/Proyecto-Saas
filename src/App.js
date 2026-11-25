@@ -1,7 +1,8 @@
 import MovimientosInventario from './Pages/MovimientosInventario';
 import Dashboard from './Pages/Dashboard';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Products from './Pages/Products';
+import PasswordAccess from './Pages/PasswordAccess';
 import './App.css'
 
 const features = [
@@ -31,29 +32,13 @@ function App() {
   const [vista, setVista] = useState('inicio');
 
   // Estado compartido entre Productos, Movimientos y el futuro Dashboard
-  const [products, setProducts] = useState(() => {
-    const guardados = localStorage.getItem('stockwise_products');
-    return guardados ? JSON.parse(guardados) : [
-      { id: 1, name: 'Arroz', category: 'Alimentos', quantity: 25, price: 4000 },
-      { id: 2, name: 'Teclado Mecánico', category: 'Tecnología', quantity: 15, price: 120000 },
-      { id: 3, name: 'Mouse Inalámbrico', category: 'Tecnología', quantity: 4, price: 55000 },
-    ];
-  });
+  const [products, setProducts] = useState([
+    { id: 1, name: 'Arroz', category: 'Alimentos', quantity: 25, price: 4000 },
+    { id: 2, name: 'Teclado Mecánico', category: 'Tecnología', quantity: 15, price: 120000 },
+    { id: 3, name: 'Mouse Inalámbrico', category: 'Tecnología', quantity: 4, price: 55000 },
+  ]);
 
-  const [movimientos, setMovimientos] = useState(() => {
-    const guardados = localStorage.getItem('stockwise_movimientos');
-    return guardados ? JSON.parse(guardados) : [];
-  });
-
-  useEffect(() => {
-    localStorage.setItem('stockwise_products', JSON.stringify(products));
-  }, [products]);
-
-  useEffect(() => {
-    localStorage.setItem('stockwise_movimientos', JSON.stringify(movimientos));
-  }, [movimientos]);
-
-
+  const [movimientos, setMovimientos] = useState([]);
   
   return (
     <div className="app">
@@ -74,18 +59,18 @@ function App() {
             <a href="#planes">Planes y precios</a>
           </nav>
 
-          <a
-            href="#dashboard"
-            className="nav-button"
-            onClick={(e) => {
-              e.preventDefault();
-              setVista('dashboard');
-            }}
-          >
-            Comenzar
-          </a>
-        </>
-      ) : (
+        <a
+          href="#acceso"
+          className="nav-button"
+          onClick={(e) => {
+            e.preventDefault();
+            setVista('acceso');
+          }}
+        >
+          Comenzar
+        </a>
+      </>
+      ) : vista === 'acceso' ? null : (
         <>
           <nav className="nav-links" aria-label="Navegación del inventario">
             <a href="#dashboard" onClick={(e) => {
@@ -114,7 +99,14 @@ function App() {
       )}
     </header>
     
-      {vista === 'productos' ? (
+      {vista === 'acceso' ? (
+        <PasswordAccess
+          onAccess={() => {
+            // Pending password validation integration
+          }}
+          onBack={() => setVista('inicio')}
+        />
+      ) : vista === 'productos' ? (
         <Products products={products} setProducts={setProducts} />
       ) : vista === 'movimientos' ? (
         <MovimientosInventario
