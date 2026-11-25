@@ -39,9 +39,25 @@
 * **Control de Versiones:** Git & GitHub
 
 ---
-
 ## Instalación y Ejecución Local
 
+### Requisitos previos
+* [Node.js](https://nodejs.org) 18 o superior (versión LTS)
+* npm (incluido con Node.js)
+* [Git](https://git-scm.com)
+
+### Pasos
 1. Clona el repositorio:
    ```bash
-   git clone [https://github.com/JnrMls/Proyecto-Saas.git](https://github.com/JnrMls/Proyecto-Saas.git)
+   git clone https://github.com/JnrMls/Proyecto-Saas.git
+   cd Proyecto-Saas
+   ```
+2. Instala las dependencias:
+   ```bash
+   npm install
+   ```
+3. Inicia el servidor de desarrollo:
+   ```bash
+   npm start
+   ```
+4. Abre [http://localhost:3000](http://localhost:3000) en el navegador. La página se recarga sola al guardar cambios.
