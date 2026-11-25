@@ -42,24 +42,62 @@ function App() {
   return (
     <div className="app">
       <header className="navbar">
-        <a href="#home" className="brand">
+        <a
+          href="#home"
+          className="brand"
+          onClick={() => setVista('inicio')}
+        >
           <span className="brand-icon">S</span>
           StockWise
         </a>
+        {vista === 'inicio' ? (
+         <>
+          <nav className="nav-links" aria-label="Navegación principal">
+            <a href="#home">Inicio</a>
+            <a href="#features">Funcionalidades</a>
+            <a href="#planes">Planes y precios</a>
+          </nav>
 
-        <nav className="nav-links" aria-label="Navegación principal">
-          <a href="#home" onClick={() => setVista('inicio')}>Inicio</a>
-          <a href="#features" onClick={() => setVista('inicio')}>Funcionalidades</a>
-          <a href="#planes" onClick={() => setVista('inicio')}>Planes y precios</a>
-          <a href="#productos" onClick={(e) => { e.preventDefault(); setVista('productos'); }}>Productos</a>
-          <a href="#movimientos" onClick={(e) => { e.preventDefault(); setVista('movimientos'); }}>Movimientos</a>
-          <a href="#dashboard" onClick={(e) => { e.preventDefault(); setVista('dashboard'); }}>Dashboard</a>
-        </nav>
+          <a
+            href="#dashboard"
+            className="nav-button"
+            onClick={(e) => {
+              e.preventDefault();
+              setVista('dashboard');
+            }}
+          >
+            Comenzar
+          </a>
+        </>
+      ) : (
+        <>
+          <nav className="nav-links" aria-label="Navegación del inventario">
+            <a href="#dashboard" onClick={(e) => {
+              e.preventDefault();
+              setVista('dashboard');
+            }}>Dashboard</a>
 
-        <a href="#features" className="nav-button">
-          Comenzar
-        </a>
-      </header>
+            <a href="#productos" onClick={(e) => {
+              e.preventDefault();
+              setVista('productos');
+            }}>Productos</a>
+
+            <a href="#movimientos" onClick={(e) => {
+              e.preventDefault();
+              setVista('movimientos');
+            }}>Movimientos</a>
+          </nav>
+           <a
+            href="#home"
+            className="nav-button"
+            onClick={() => setVista('inicio')}
+          >
+            Volver al inicio
+          </a>
+        </>
+      )}
+    </header>
+    
       {vista === 'productos' ? (
         <Products products={products} setProducts={setProducts} />
       ) : vista === 'movimientos' ? (
