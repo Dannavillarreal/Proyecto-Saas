@@ -1,10 +1,8 @@
 import MovimientosInventario from './Pages/MovimientosInventario';
 import Dashboard from './Pages/Dashboard';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Products from './Pages/Products';
 import './App.css'
-
-const CODIGO_ACCESO = 'STOCKWISE2026';
 
 const features = [
   {
@@ -31,11 +29,8 @@ const features = [
 
 function App() {
   const [vista, setVista] = useState('inicio');
-  const [autenticado, setAutenticado] = useState(false);
-  const [codigo, setCodigo] = useState('');
-  const [errorAcceso, setErrorAcceso] = useState('');
 
-  // Estado compartido con persistencia local en el navegador
+  // Estado compartido entre Productos, Movimientos y el futuro Dashboard
   const [products, setProducts] = useState(() => {
     const guardados = localStorage.getItem('stockwise_products');
     return guardados ? JSON.parse(guardados) : [
@@ -58,24 +53,7 @@ function App() {
     localStorage.setItem('stockwise_movimientos', JSON.stringify(movimientos));
   }, [movimientos]);
 
-  const validarAcceso = (e) => {
-    e.preventDefault();
-    if (codigo.trim() === CODIGO_ACCESO) {
-      setAutenticado(true);
-      setCodigo('');
-      setErrorAcceso('');
-      setVista('dashboard');
-    } else {
-      setErrorAcceso('Código de acceso incorrecto.');
-    }
-  };
 
-  const volverInicio = () => {
-    setAutenticado(false);
-    setCodigo('');
-    setErrorAcceso('');
-    setVista('inicio');
-  };
   
   return (
     <div className="app">
@@ -83,26 +61,25 @@ function App() {
         <a
           href="#home"
           className="brand"
-          onClick={volverInicio}
+          onClick={() => setVista('inicio')}
         >
           <span className="brand-icon">S</span>
           StockWise
         </a>
-        {(vista === 'inicio' || !autenticado) ? (
+        {vista === 'inicio' ? (
          <>
           <nav className="nav-links" aria-label="Navegación principal">
-            <a href="#home" onClick={volverInicio}>Inicio</a>
-            <a href="#features" onClick={volverInicio}>Funcionalidades</a>
-            <a href="#planes" onClick={volverInicio}>Planes y precios</a>
+            <a href="#home">Inicio</a>
+            <a href="#features">Funcionalidades</a>
+            <a href="#planes">Planes y precios</a>
           </nav>
 
           <a
-            href="#acceso"
+            href="#dashboard"
             className="nav-button"
             onClick={(e) => {
               e.preventDefault();
-              setErrorAcceso('');
-              setVista('acceso');
+              setVista('dashboard');
             }}
           >
             Comenzar
@@ -137,39 +114,16 @@ function App() {
       )}
     </header>
     
-      {vista === 'acceso' && !autenticado ? (
-        <main style={{ minHeight: '70vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '24px' }}>
-          <div style={{ width: '100%', maxWidth: '380px', backgroundColor: '#fff', padding: '32px', borderRadius: '12px', boxShadow: '0 8px 24px rgba(0,0,0,0.08)', textAlign: 'center' }}>
-            <h2 style={{ marginBottom: '20px', color: '#111827' }}>ACCESO</h2>
-            <form onSubmit={validarAcceso} style={{ display: 'grid', gap: '12px' }}>
-              <input
-                type="password"
-                value={codigo}
-                onChange={(e) => setCodigo(e.target.value)}
-                placeholder="Ingrese su código de acceso"
-                required
-                style={{ padding: '12px', borderRadius: '8px', border: '1px solid #d1d5db' }}
-              />
-              {errorAcceso && <p style={{ color: '#dc2626', fontSize: '0.85rem', margin: 0 }}>{errorAcceso}</p>}
-              <button
-                type="submit"
-                style={{ padding: '12px', backgroundColor: '#111827', color: '#fff', border: 'none', borderRadius: '8px', fontWeight: 'bold', cursor: 'pointer' }}
-              >
-                ACCEDER
-              </button>
-            </form>
-          </div>
-        </main>
-      ) : autenticado && vista === 'productos' ? (
+      {vista === 'productos' ? (
         <Products products={products} setProducts={setProducts} />
-      ) : autenticado && vista === 'movimientos' ? (
+      ) : vista === 'movimientos' ? (
         <MovimientosInventario
           productos={products}
           onActualizarStock={setProducts}
           movimientos={movimientos}
           setMovimientos={setMovimientos}
         />
-      ) : autenticado && vista === 'dashboard' ? (
+      ) : vista === 'dashboard' ? (
         <Dashboard products={products} movimientos={movimientos} />
       ) : (
       <main>
