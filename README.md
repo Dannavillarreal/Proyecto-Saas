@@ -87,3 +87,14 @@ Proyecto-Saas/
 ├── package.json             # Dependencias y scripts del proyecto
 └── README.md                # Documentación del proyecto
 ```
+---
+
+## Acceso a la Aplicación
+
+Para ingresar a StockWise en [https://stockwise.tech](https://stockwise.tech) se usa la siguiente contraseña de demostración:
+
+| Dato | Valor |
+|---|---|
+| Contraseña | `stockwise2026` |
+
+> Esta clave es solo para fines académicos y de demostración.
