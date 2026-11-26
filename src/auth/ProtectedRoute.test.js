@@ -53,7 +53,7 @@ test('blocks access when the session expires', () => {
   expect(screen.getByText('Inventario privado')).toBeInTheDocument();
 
   act(() => {
-    jest.advanceTimersByTime(1000);
+    jest.advanceTimersByTime(5000);
   });
 
   expect(screen.queryByText('Inventario privado')).not.toBeInTheDocument();

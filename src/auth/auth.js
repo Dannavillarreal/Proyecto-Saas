@@ -6,6 +6,16 @@ export const validatePassword = (password, correctPassword) => {
   return password === correctPassword;
 };
 
+// Iniciar sesión si la contraseña es correcta
+export const login = (password, correctPassword) => {
+  if (!validatePassword(password, correctPassword)) {
+    return false;
+  }
+
+  startSession();
+  return true;
+};
+
 // Iniciar sesión
 export const startSession = () => {
   const session = {

@@ -15,7 +15,7 @@ function ProtectedRoute({ children }) {
       }
     };
 
-    const interval = setInterval(checkSession, 1000);
+    const interval = setInterval(checkSession, 5000);
 
     window.addEventListener('focus', checkSession);
 
@@ -26,8 +26,13 @@ function ProtectedRoute({ children }) {
   }, []);
 
   if (!authenticated) {
-    return null;
-  }
+  return (
+    <div className="access-denied">
+      <h2>Acceso restringido</h2>
+      <p>Debes iniciar sesión para acceder al inventario.</p>
+    </div>
+  );
+}
 
   return children;
 }
