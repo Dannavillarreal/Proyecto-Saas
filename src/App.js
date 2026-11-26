@@ -1,6 +1,13 @@
 
 import './App.css'
 
+import React, { useState } from 'react';
+import Login from './Pages/Login';
+import Products from './Pages/Products';
+import { login, isSessionActive, closeSession } from './auth/auth';
+
+const CORRECT_PASSWORD = 'stockwise2026';
+
 const features = [
   {
     icon: '📦',
@@ -25,6 +32,38 @@ const features = [
 ]
 
 function App() {
+  const [view, setView] = useState(
+    isSessionActive() ? 'products' : 'home'
+  );
+
+  const handleLogin = (password) => {
+    const success = login(password, CORRECT_PASSWORD);
+
+    if (success) {
+      setView('products');
+    }
+
+    return success;
+  };
+
+  const handleLogout = () => {
+    closeSession();
+    setView('home');
+  };
+
+  if (view === 'login') {
+    return (
+      <Login
+        onLogin={handleLogin}
+        onBack={() => setView('home')}
+      />
+    );
+  }
+
+  if (view === 'products') {
+    return <Products onLogout={handleLogout} />;
+  }
+
   return (
     <div className="app">
       <header className="navbar">
@@ -39,9 +78,13 @@ function App() {
           <a href="#how-it-works">¿Cómo funciona?</a>
         </nav>
 
-        <a href="#features" className="nav-button">
-          Comenzar 
-        </a>
+        <button
+  type="button"
+  className="nav-button"
+  onClick={() => setView('login')}
+>
+  Comenzar
+</button>
       </header>
 
       <main>

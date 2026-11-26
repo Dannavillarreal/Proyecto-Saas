@@ -4,7 +4,7 @@ import ProductForm from '../Components/Products/ProductForm';
 import ProductList from '../Components/Products/ProductList';
 import '../Styles/Products.css';
 
-function Products() {
+function Products({ onLogout })  {
   const [products, setProducts] = useState([]);
   const [showForm, setShowForm] = useState(false);
 
@@ -38,6 +38,14 @@ function Products() {
         >
           + Agregar producto
         </button>
+
+        <button
+  type="button"
+  className="logout-button"
+  onClick={onLogout}
+>
+  Cerrar sesión
+</button>
       </div>
 
       {showForm && (
