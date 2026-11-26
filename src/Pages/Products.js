@@ -1,4 +1,4 @@
-
+import ProtectedRoute from '../auth/ProtectedRoute';
 import React, { useState } from 'react';
 import ProductForm from '../Components/Products/ProductForm';
 import ProductList from '../Components/Products/ProductList';
@@ -24,6 +24,7 @@ function Products() {
   };
 
   return (
+  <ProtectedRoute>
     <main className="products-page">
       <div className="products-header">
         <div>
@@ -51,7 +52,8 @@ function Products() {
         onDeleteProduct={handleDeleteProduct}
       />
     </main>
-  );
+  </ProtectedRoute>
+);
 }
 
 export default Products;
