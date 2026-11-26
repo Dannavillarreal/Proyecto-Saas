@@ -1,70 +1,150 @@
-# Getting Started with Create React App
+# StockWise — Gestión Inteligente de Inventarios
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**StockWise** es una aplicación web desarrollada en React diseñada para facilitar el control y la administración de inventarios en pequeños negocios. Permite gestionar el catálogo de productos, registrar entradas y salidas de mercancía con validación de existencias y monitorear alertas de reposición en tiempo real.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## Módulos y Funcionalidades
 
-### `npm start`
+1. **Inicio y Navegación (`App.js`):** Interfaz principal de presentación de la plataforma y navegación dinámica entre vistas sin recarga de página.
+2. **Gestión de Productos (`Products`):** Formulario de registro y listado general con cálculo automático del estado de existencias (`Disponible`, `Stock bajo` y `Agotado`).
+3. **Movimientos de Inventario (`MovimientosInventario`):** Registro de **Entradas** y **Salidas** de inventario con validación de stock disponible, actualización automática de cantidades e historial de movimientos con fecha y motivo.
+4. **Dashboard y Alertas (`Dashboard`):** Panel de resumen con indicadores generales del negocio y alertas tempranas para productos agotados o con pocas unidades.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Arquitectura y Buenas Prácticas Aplicadas
 
-### `npm test`
+* **Estado Centralizado (*Lifting State Up*):** El estado compartido de `products` y `movimientos` se gestiona en `src/App.js` y se distribuye mediante *props*, garantizando sincronización inmediata entre módulos.
+* **Estructura Modular:** Organización del código fuente separada por responsabilidades en `src/Pages/`, `src/Components/`, `src/Styles/` y `src/Utils/`.
+* **Flujo de Trabajo Colaborativo en Git:** Desarrollo aislado por ramas de funcionalidad (`ftInventory`, `feature/*`), sincronización constante con la rama `prod` e integración mediante *Pull Requests* con revisión de código (*Code Review*) y mensajes bajo el estándar *Conventional Commits*.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## Tecnologías Utilizadas
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+* **Frontend:** React 19, JavaScript (ES6+), HTML5, CSS3
+* **Herramientas de compilación:** Create React App (`react-scripts` 5.0.1)
+* **Pruebas:** React Testing Library, Jest DOM y User Event
+* **Entorno de ejecución:** Node.js 18 o superior y npm
+* **Control de versiones:** Git y GitHub
+* **Despliegue:** Vercel
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
+## Instalación y Ejecución Local
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Requisitos previos
+* [Node.js](https://nodejs.org) 18 o superior (versión LTS)
+* npm (incluido con Node.js)
+* [Git](https://git-scm.com)
 
-### `npm run eject`
+### Pasos
+1. Clona el repositorio:
+   ```bash
+   git clone https://github.com/JnrMls/Proyecto-Saas.git
+   cd Proyecto-Saas
+   ```
+2. Instala las dependencias:
+   ```bash
+   npm install
+   ```
+3. Inicia el servidor de desarrollo:
+   ```bash
+   npm start
+   ```
+4. Abre [http://localhost:3000](http://localhost:3000) en el navegador. La página se recarga sola al guardar cambios.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Comandos disponibles
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+| Comando | Descripción |
+|---|---|
+| `npm start` | Inicia el servidor de desarrollo en `http://localhost:3000`. |
+| `npm run build` | Compila la aplicación para producción en la carpeta `build/`. |
+| `npm test` | Ejecuta las pruebas en modo interactivo. |
+| `npm run eject` | Expone la configuración de Create React App (acción irreversible). |
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+---
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Estructura del Proyecto
 
-## Learn More
+```
+Proyecto-Saas/
+├── public/                  # Archivos estáticos (index.html, favicon, íconos)
+├── src/
+│   ├── Components/
+│   │   └── Products/        # Componentes reutilizables del módulo de productos
+│   ├── Pages/
+│   │   ├── Dashboard.js             # Panel de resumen y alertas
+│   │   ├── MovimientosInventario.js # Registro de entradas y salidas
+│   │   ├── PasswordAccess.js        # Pantalla de acceso con contraseña
+│   │   └── Products.js              # Gestión y listado de productos
+│   ├── Styles/              # Hojas de estilo de cada página
+│   ├── Utils/
+│   │   └── inventario.js    # Lógica de inventario (con sus pruebas)
+│   ├── App.js               # Componente principal y navegación
+│   ├── index.js             # Punto de entrada de la aplicación
+│   └── setupTests.js        # Configuración de las pruebas
+├── package.json             # Dependencias y scripts del proyecto
+└── README.md                # Documentación del proyecto
+```
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Acceso a la Aplicación
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Para ingresar a StockWise en [stockwise.tech](https://stockwise.tech), utiliza la siguiente contraseña de demostración:
 
-### Code Splitting
+| Dato | Valor |
+| --- | --- |
+| Contraseña | `stockwise2026` |
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+> Esta clave es solo para fines académicos y de demostración.
+## Dominio Público
 
-### Analyzing the Bundle Size
+La aplicación está disponible en: [https://stockwise.tech](https://stockwise.tech)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+---
 
-### Making a Progressive Web App
+## Recursos Adicionales
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+* [Documentación de React](https://react.dev)
+* [Documentación de Create React App](https://create-react-app.dev)
+* [Documentación de Node.js](https://nodejs.org/docs)
+* [Guía de Git](https://git-scm.com/doc)
 
-### Advanced Configuration
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## Solución de Errores Comunes
 
-### Deployment
+| Problema | Solución |
+|---|---|
+| `npm: command not found` | Instala Node.js (versión LTS) desde nodejs.org y reinicia la terminal. |
+| `npm install` falla o muestra errores de dependencias | Borra la carpeta `node_modules` y el archivo `package-lock.json`, y ejecuta `npm install` de nuevo. |
+| El puerto 3000 está ocupado | Cierra el otro proceso o acepta que React use otro puerto cuando lo pregunte. |
+| La página sale en blanco | Revisa la consola del navegador (F12) y confirma que ejecutaste `npm install` antes de `npm start`. |
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+---
 
-### `npm run build` fails to minify
+## Flujo de Funcionamiento
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+1. **Inicio:** el usuario llega a la página principal y pulsa **Comenzar**.
+2. **Acceso:** ingresa la contraseña para entrar al sistema de inventario.
+3. **Dashboard:** ve el resumen del negocio (total de productos, unidades, agotados y stock bajo) y las alertas de reposición.
+4. **Productos:** registra nuevos productos (con validación de datos) y consulta el listado.
+5. **Movimientos:** registra entradas y salidas de inventario; no permite sacar más unidades de las disponibles.
+
+## Capturas de la Aplicación
+
+### Inicio
+![Inicio](docs/img/inicio.png)
+
+### Acceso
+![Acceso](docs/img/acceso.png)
+
+### Dashboard
+![Dashboard](docs/img/dashboard.png)
+
+### Productos
+![Productos](docs/img/productos.png)
+
+### Movimientos
+![Movimientos](docs/img/movimientos.png)

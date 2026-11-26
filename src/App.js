@@ -1,3 +1,4 @@
+feature/authentication-security
 
 import './App.css'
 
@@ -7,6 +8,16 @@ import Products from './Pages/Products';
 import { login, isSessionActive, closeSession } from './auth/auth';
 
 const CORRECT_PASSWORD = 'stockwise2026';
+=======
+import MovimientosInventario from './Pages/MovimientosInventario';
+import Dashboard from './Pages/Dashboard';
+import React, { useState, useEffect } from 'react';
+import Products from './Pages/Products';
+import PasswordAccess from './Pages/PasswordAccess';
+import './App.css'
+ prod
+
+const CODIGO_ACCESO = 'stockwise2026'
 
 const features = [
   {
@@ -32,6 +43,7 @@ const features = [
 ]
 
 function App() {
+ feature/authentication-security
   const [view, setView] = useState(
     isSessionActive() ? 'products' : 'home'
   );
@@ -64,14 +76,53 @@ function App() {
     return <Products onLogout={handleLogout} />;
   }
 
+
+  const [vista, setVista] = useState('inicio');
+
+  // Estado compartido entre Productos, Movimientos y el futuro Dashboard
+  const [products, setProducts] = useState(() => {
+  const guardados = localStorage.getItem('stockwise_products');
+  return guardados ? JSON.parse(guardados) : [
+    { id: 1, name: 'Arroz', category: 'Alimentos', quantity: 25, price: 4000 },
+    { id: 2, name: 'Teclado Mecánico', category: 'Tecnología', quantity: 15, price: 120000 },
+    { id: 3, name: 'Mouse Inalámbrico', category: 'Tecnología', quantity: 4, price: 55000 },
+  ];
+});
+
+const [movimientos, setMovimientos] = useState(() => {
+  const guardados = localStorage.getItem('stockwise_movimientos');
+  return guardados ? JSON.parse(guardados) : [];
+});
+
+useEffect(() => {
+  localStorage.setItem('stockwise_products', JSON.stringify(products));
+}, [products]);
+
+useEffect(() => {
+  localStorage.setItem('stockwise_movimientos', JSON.stringify(movimientos));
+}, [movimientos]);
+  
+ prod
   return (
     <div className="app">
       <header className="navbar">
-        <a href="#home" className="brand">
+        <a
+          href="#home"
+          className="brand"
+          onClick={() => setVista('inicio')}
+        >
           <span className="brand-icon">S</span>
           StockWise
         </a>
+        {vista === 'inicio' ? (
+         <>
+          <nav className="nav-links" aria-label="Navegación principal">
+            <a href="#home">Inicio</a>
+            <a href="#features">Funcionalidades</a>
+            <a href="#planes">Planes y precios</a>
+          </nav>
 
+feature/authentication-security
         <nav className="nav-links" aria-label="Navegación principal">
           <a href="#home">Inicio</a>
           <a href="#features">Funcionalidades</a>
@@ -87,11 +138,95 @@ function App() {
 </button>
       </header>
 
+
+        <a
+          href="#acceso"
+          className="nav-button"
+          onClick={(e) => {
+            e.preventDefault();
+            setVista('acceso');
+          }}
+        >
+          Comenzar
+        </a>
+      </>
+      ) : vista === 'acceso' ? null : (
+        <>
+          <nav className="nav-links" aria-label="Navegación del inventario">
+            <a
+              href="#dashboard"
+              className={vista === 'dashboard' ? 'active' : ''}
+              aria-current={vista === 'dashboard' ? 'page' : undefined}
+              onClick={(e) => {
+                e.preventDefault();
+                setVista('dashboard');
+              }}
+            >
+              Dashboard
+            </a>
+            <a
+              href="#productos"
+              className={vista === 'productos' ? 'active' : ''}
+              aria-current={vista === 'productos' ? 'page' : undefined}
+              onClick={(e) => {
+                e.preventDefault();
+                setVista('productos');
+              }}
+            >
+              Productos
+            </a>
+            <a
+              href="#movimientos"
+              className={vista === 'movimientos' ? 'active' : ''}
+              aria-current={vista === 'movimientos' ? 'page' : undefined}
+              onClick={(e) => {
+                e.preventDefault();
+                setVista('movimientos');
+              }}
+            >
+              Movimientos
+            </a>
+          </nav>
+           <a
+            href="#home"
+            className="nav-button"
+            onClick={() => setVista('inicio')}
+          >
+            Volver al inicio
+          </a>
+        </>
+      )}
+    </header>
+    
+      {vista === 'acceso' ? (
+        <PasswordAccess
+          onAccess={(passwordIngresada) => {
+            if (passwordIngresada.trim() === CODIGO_ACCESO) {
+              setVista('dashboard');
+            } else {
+              alert('Contraseña incorrecta. Intenta nuevamente.');
+            }
+          }}
+          onBack={() => setVista('inicio')}
+        />
+      ) : vista === 'productos' ? (
+        <Products products={products} setProducts={setProducts} />
+      ) : vista === 'movimientos' ? (
+        <MovimientosInventario
+          productos={products}
+          onActualizarStock={setProducts}
+          movimientos={movimientos}
+          setMovimientos={setMovimientos}
+        />
+      ) : vista === 'dashboard' ? (
+        <Dashboard products={products} movimientos={movimientos} />
+      ) : (
+prod
       <main>
         <section className="hero" id="home">
           <div className="hero-content">
             <span className="eyebrow">
-               GESTIÓN INTELIGENTE DE INVENTARIOS
+              GESTIÓN INTELIGENTE DE INVENTARIOS
             </span>
 
             <h1>
@@ -111,8 +246,8 @@ function App() {
                 Explorar funcionalidades
               </a>
 
-              <a href="#how-it-works" className="secondary-button">
-                ¿Cómo funciona?
+              <a href="#planes" className="secondary-button">
+                Ver planes
               </a>
             </div>
 
@@ -200,43 +335,90 @@ function App() {
           </div>
         </section>
 
-        <section className="how-section section" id="how-it-works">
+        <section className="pricing-section section" id="planes">
           <div className="section-heading">
-            <span className="section-label">¿CÓMO FUNCIONA?</span>
-            <h2>Organiza tu inventario en tres pasos.</h2>
+            <span className="section-label">PLANES STOCKWISE</span>
+            <h2>Elige el plan ideal para tu negocio.</h2>
+            <p>
+              Conoce nuestras opciones y encuentra la que mejor
+              se adapte a tus necesidades.
+            </p>
           </div>
 
-          <div className="steps-grid">
-            <div className="step">
-              <span>01</span>
-              <h3>Registra tus productos</h3>
-              <p>Agrega y organiza los productos de tu negocio.</p>
-            </div>
-            <div className="step">
-              <span>02</span>
-              <h3>Controla las existencias</h3>
-              <p>Consulta las unidades disponibles y los movimientos de inventario.</p>
-            </div>
-            <div className="step">
-              <span>03</span>
-              <h3>Mantente informado</h3>
-              <p>Identifica productos con pocas existencias y planifica su reposición.</p>
-            </div>
-          </div>
-        </section>
+          <div className="pricing-grid">
+            <article className="pricing-card">
+              <h3>Gratis</h3>
+              <div className="pricing-price">
+                <strong>$0</strong>
+                <span>COP / mes</span>
+              </div>
+              <p>Ideal para comenzar a organizar tu inventario.</p>
+              <ul>
+                <li>✓ Hasta 20 productos registrados</li>
+                <li>✓ Consulta de existencias</li>
+                <li>✓ Registro básico de productos</li>
+                <li>✓ Acceso para un usuario</li>
+              </ul>
+            </article>
+            <article className="pricing-card pricing-featured">
+              <span className="pricing-badge">Más popular</span>
+              <h3>Pro</h3>
+              <div className="pricing-price">
+                 <strong>$29.900</strong>
+                 <span>COP / mes</span>
+              </div>
+              <p>Para negocios que necesitan más control.</p>
+              <ul>
+                <li>✓ Todo lo incluido en Gratis</li>
+                <li>✓ Hasta 500 productos registrados</li>
+                <li>✓ Entradas y salidas de inventario</li>
+                <li>✓ Alertas de existencias bajas</li>
+                <li>✓ Historial de movimientos</li>
+                <li>✓ Acceso para hasta 3 usuarios</li>
+              </ul>
+            </article>
 
-        <section className="cta-section">
-          <span className="section-label">ORGANIZA TU NEGOCIO</span>
-          <h2>Toma el control de tu inventario.</h2>
-          <p>
-            Facilita la gestión de tus productos con StockWise.
+            <article className="pricing-card pricing-enterprise">
+              <span className="enterprise-badge">Premium</span>
+              <h3>Empresa</h3>
+              <div className="pricing-price">
+                 <strong>$59.900</strong>
+                 <span>COP / mes</span>
+              </div>
+              <p>Para negocios con operaciones más grandes.</p>
+              <ul>
+                  <li>✓ Todo lo incluido en Pro</li>
+                  <li>✓ Productos ilimitados</li>
+                  <li>✓ Usuarios ilimitados</li>
+                  <li>✓ Reportes avanzados de inventario</li>
+                  <li>✓ Gestión de múltiples sucursales</li>
+                  <li>✓ Soporte prioritario</li>
+              </ul>
+            </article>
+          </div>
+          <p className="pricing-disclaimer">
+            Planes ilustrativos. Consulta la disponibilidad
+            de las funcionalidades con nuestro equipo.
           </p>
-          <a href="#features" className="cta-button">
-            Conoce StockWise 
-          </a>
         </section>
-      </main>
 
+      <section className="cta-section" id="contacto">
+        <span className="section-label">CONTÁCTANOS</span>
+
+        <h2>¿Tienes dudas sobre nuestros planes?</h2>
+
+        <p>
+          Estamos aquí para ayudarte. Contáctanos para conocer
+          más sobre StockWise y encontrar el plan ideal
+          para tu negocio.
+        </p>
+
+        <a href="mailto:soporte@stockwise.example" className="cta-button">
+          Contáctanos por correo
+        </a>
+      </section>
+    </main>
+      )}
       <footer className="footer">
         <span className="footer-brand">StockWise</span>
         <span>Gestión de inventarios para pequeños negocios.</span>
@@ -246,5 +428,10 @@ function App() {
   )
 }
 
+ feature/authentication-security
 export default App  
  
+=======
+export default App
+
+ prod
