@@ -87,3 +87,28 @@ Proyecto-Saas/
 ├── package.json             # Dependencias y scripts del proyecto
 └── README.md                # Documentación del proyecto
 ```
+---
+
+## Dominio Público
+
+La aplicación está disponible en: [https://stockwise.tech](https://stockwise.tech)
+
+---
+
+## Recursos Adicionales
+
+* [Documentación de React](https://react.dev)
+* [Documentación de Create React App](https://create-react-app.dev)
+* [Documentación de Node.js](https://nodejs.org/docs)
+* [Guía de Git](https://git-scm.com/doc)
+
+---
+
+## Solución de Errores Comunes
+
+| Problema | Solución |
+|---|---|
+| `npm: command not found` | Instala Node.js (versión LTS) desde nodejs.org y reinicia la terminal. |
+| `npm install` falla o muestra errores de dependencias | Borra la carpeta `node_modules` y el archivo `package-lock.json`, y ejecuta `npm install` de nuevo. |
+| El puerto 3000 está ocupado | Cierra el otro proceso o acepta que React use otro puerto cuando lo pregunte. |
+| La página sale en blanco | Revisa la consola del navegador (F12) y confirma que ejecutaste `npm install` antes de `npm start`. |
