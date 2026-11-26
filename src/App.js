@@ -89,20 +89,39 @@ useEffect(() => {
       ) : vista === 'acceso' ? null : (
         <>
           <nav className="nav-links" aria-label="Navegación del inventario">
-            <a href="#dashboard" onClick={(e) => {
-              e.preventDefault();
-              setVista('dashboard');
-            }}>Dashboard</a>
-
-            <a href="#productos" onClick={(e) => {
-              e.preventDefault();
-              setVista('productos');
-            }}>Productos</a>
-
-            <a href="#movimientos" onClick={(e) => {
-              e.preventDefault();
-              setVista('movimientos');
-            }}>Movimientos</a>
+            <a
+              href="#dashboard"
+              className={vista === 'dashboard' ? 'active' : ''}
+              aria-current={vista === 'dashboard' ? 'page' : undefined}
+              onClick={(e) => {
+                e.preventDefault();
+                setVista('dashboard');
+              }}
+            >
+              Dashboard
+            </a>
+            <a
+              href="#productos"
+              className={vista === 'productos' ? 'active' : ''}
+              aria-current={vista === 'productos' ? 'page' : undefined}
+              onClick={(e) => {
+                e.preventDefault();
+                setVista('productos');
+              }}
+            >
+              Productos
+            </a>
+            <a
+              href="#movimientos"
+              className={vista === 'movimientos' ? 'active' : ''}
+              aria-current={vista === 'movimientos' ? 'page' : undefined}
+              onClick={(e) => {
+                e.preventDefault();
+                setVista('movimientos');
+              }}
+            >
+              Movimientos
+            </a>
           </nav>
            <a
             href="#home"
