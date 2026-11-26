@@ -121,3 +121,30 @@ La aplicación está disponible en: [https://stockwise.tech](https://stockwise.t
 | `npm install` falla o muestra errores de dependencias | Borra la carpeta `node_modules` y el archivo `package-lock.json`, y ejecuta `npm install` de nuevo. |
 | El puerto 3000 está ocupado | Cierra el otro proceso o acepta que React use otro puerto cuando lo pregunte. |
 | La página sale en blanco | Revisa la consola del navegador (F12) y confirma que ejecutaste `npm install` antes de `npm start`. |
+
+---
+
+## Flujo de Funcionamiento
+
+1. **Inicio:** el usuario llega a la página principal y pulsa **Comenzar**.
+2. **Acceso:** ingresa la contraseña para entrar al sistema de inventario.
+3. **Dashboard:** ve el resumen del negocio (total de productos, unidades, agotados y stock bajo) y las alertas de reposición.
+4. **Productos:** registra nuevos productos (con validación de datos) y consulta el listado.
+5. **Movimientos:** registra entradas y salidas de inventario; no permite sacar más unidades de las disponibles.
+
+## Capturas de la Aplicación
+
+### Inicio
+![Inicio](docs/img/inicio.png)
+
+### Acceso
+![Acceso](docs/img/acceso.png)
+
+### Dashboard
+![Dashboard](docs/img/dashboard.png)
+
+### Productos
+![Productos](docs/img/productos.png)
+
+### Movimientos
+![Movimientos](docs/img/movimientos.png)
